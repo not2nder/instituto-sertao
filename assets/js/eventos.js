@@ -4,20 +4,19 @@ const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
 
 const listaContainer = document.querySelector('#eventos-lista');
 
-async function getProdutos() {
-        const { data, error } = await supabaseClient.from("noticias").select("*").limit(3);
+async function getEventos() {
+        const { data, error } = await supabaseClient.from("eventos").select("*").limit(3).order('data_evento', { ascending: false });
         if (error) { console.log("Erro ao Buscar os dados")}
-        
-        data.forEach(noticia => {
+        console.log(data)
+        data.forEach(evento => {
                 const item = document.createElement('li')
                 item.classList.add(`col-sm-${12/data.length}`)
-                item.style = "list-style: none"
                 item.innerHTML = `
                 <div class="card h-100">
-                        <img class="card-img-top" style="object-fit: cover; width: 100%; aspect-ratio: 4/3" src="${noticia.imagem_url}">
+                        <img class="card-img-top" style="object-fit: cover; width: 100%; aspect-ratio: 16/9" src="${evento.imagem_url}">
                         <div class="card-body">
-                                <h5 class="card-title"><strong>${noticia.titulo}</strong></h5>
-                                <p class="card-text text-secondary">${noticia.descricao}</p>
+                                <h5 class="card-title"><strong>${evento.titulo}</strong></h5>
+                                <p class="card-text text-secondary">${evento.descricao}</p>
                         </div>
                 </div>
                 `;
@@ -25,4 +24,4 @@ async function getProdutos() {
         });
 }
 
-getProdutos();
+getEventos();
