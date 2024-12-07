@@ -7,7 +7,7 @@ const listaContainer = document.querySelector('#noticias-lista');
 async function getNoticias() {
         const { data, error } = await supabaseClient.from("noticias").select("*");
         if (error) { console.log("Erro ao Buscar os dados")}
-        console.log(data)
+        
         data.forEach(noticia => {
                 const item = document.createElement('li')
                 item.classList.add(`col-sm-12`,'border-bottom')
@@ -21,7 +21,8 @@ async function getNoticias() {
                                         </div>
                                 </div>
                         </div>
-                        <p class="text-secondary mt-3">${noticia.descricao}</p>
+                        <h4 class="text-dark font-weight-bold my-3" style="font-family: Arial, Helvetica, sans-serif; font-weight: 700">${noticia.subtitulo}</h4>
+                        <p class="text-secondary mt-3 px-1">${noticia.descricao}</p>
                 `;
                 listaContainer.appendChild(item);
         });

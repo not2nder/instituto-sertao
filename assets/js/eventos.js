@@ -7,7 +7,7 @@ const listaContainer = document.querySelector('#eventos-lista');
 async function getEventos() {
         const { data, error } = await supabaseClient.from("eventos").select("*").limit(3).order('data_evento', { ascending: false });
         if (error) { console.log("Erro ao Buscar os dados")}
-        console.log(data)
+        
         data.forEach(evento => {
                 const item = document.createElement('li')
                 item.classList.add(`col-sm-${12/data.length}`)
