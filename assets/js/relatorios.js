@@ -14,10 +14,10 @@ async function listarRelatoriosPublicos() {
         pdfElement.innerHTML = `
             <a href="${url}" 
                 target="_blank" 
-                    download 
-                    class="btn btn-outline-success btn-lg w-100 d-flex justify-content-center align-items-center">
-                    <i class="bi bi-file-earmark-pdf-fill me-2"></i>
-                    ${arquivo.name}
+                download 
+                class="btn btn-outline-success btn-lg w-100 d-flex justify-content-center align-items-center">
+                <i class="bi bi-file-earmark-pdf-fill me-2"></i>
+                ${arquivo.name}
             </a>
         `;
 
