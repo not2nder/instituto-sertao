@@ -5,7 +5,7 @@ const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
 const listaContainer = document.querySelector('#noticias-lista');
 
 async function getNoticias() {
-        const { data, error } = await supabaseClient.from("noticias").select("*");
+        const { data, error } = await supabaseClient.from("noticias").select("*").order('data_noticia', { ascending: false });
         if (error) { console.log("Erro ao Buscar os dados")}
 
         data.forEach(noticia => {
