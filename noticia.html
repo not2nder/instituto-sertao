@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>Notícias - Instituto de Desenvolvimento do Sertão</title>
+  <title>Instituto de Desenvolvimento do Sertão</title>
   <meta name="description" content="O Instituto de Desenvolvimento do Sertão (IDS) promove o desenvolvimento social, cultural, e educacional do sertão brasileiro. Conheça nossos projetos e iniciativas que transformam comunidades locais. Junte-se a nós para construir um futuro mais próspero e inclusivo!">
   <meta name="keywords" content="desenvolvimento social, educação, cultura, Instituto de Desenvolvimento do Sertão, sertão brasileiro">
 
@@ -31,18 +31,6 @@
 </head>
 
 <body class="index-page">
-  <style>
-    .card {
-      position: relative;
-    }
-    .card-img-overlay {
-      background: rgb(0,0,0);
-      background: linear-gradient(0deg, rgba(26, 26, 26, 0.835) 0%, rgba(145,145,145,0) 75%);
-      color: white; /* Texto branco para contraste */
-      bottom: 0; /* Posiciona no fundo */
-      padding: 10px; /* Espaçamento interno */
-    }
-  </style>
   <header id="header" class="header d-flex align-items-center fixed-top">
     <div class="container-fluid container-xl position-relative d-flex align-items-center">
 
@@ -64,12 +52,17 @@
   <main class="main" style="margin-top: 100px;">
     <section class="mb-1 pt-2 mt-5">
       <div class="container section-title pb-0">
-        <h2><i class="bi bi-newspaper"></i></i> Notícias</h2>
+        <h2 id="titulo"></h2>
       </div><!-- End Section Title -->
-      <div class="noticias px- w-100">
-        <ul id="noticias-lista" class="row g-5 mx-1 p-0">
-          <!-- Js -->
-        </ul>
+      <div class="container px-4 w-100">
+        <div id="noticia">
+          <img src="" class="rounded-3 w-100" id="imagem">
+          <div class="my-3">
+            <h3 id="subtitulo"></h3>
+          </div>
+          <p id="descricao"></p>
+        </div>
+        <!-- Js -->
       </div>
     </section>
   </main>
@@ -120,7 +113,7 @@
 
   <!-- Main JS File -->
   <script src="assets/js/main.js"></script>
-  <script src="assets/js/noticias.js"></script>
+  <script src="assets/js/noticia.js"></script>
 </body>
 
 </html>

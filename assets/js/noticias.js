@@ -10,24 +10,25 @@ async function getNoticias() {
 
         data.forEach(noticia => {
                 const item = document.createElement('li')
-                item.classList.add(`col-sm-12`,'border-bottom')
+                item.classList.add(`col-sm-4`,'border-bottom','col-md-6','col-lg-4')
                 item.innerHTML = `
-                        <div class="card">
-                                <div class="position-relative">
-                                        <img class="card-img-top" style="object-fit: cover; width: 100%; aspect-ratio: 4/3" src="${noticia.noticia_imagem}" alt="Imagem da Notícia">
-                                        <div class="card-img-overlay d-flex flex-column justify-content-end">
-                                                <h3 class="card-title text-white" style=" font-family: Arial, Helvetica, sans-serif; font-weight: 350"><strong>${noticia.titulo}</strong></h3>
-                                                <p class="card-text text-white"> <i class="bi bi-calendar-week"></i> ${noticia.data_noticia}</p>
+                        <a href="noticia.html?id=${noticia.id}">
+                                <div class="card">
+                                        <div class="position-relative">
+                                                <img class="card-img-top" style="object-fit: cover; aspect-ratio: 4/3" src="${noticia.noticia_imagem}" alt="Imagem da Notícia">
+                                                <div class="card-img-overlay d-flex flex-column justify-content-end">
+                                                        <h4 class="card-title text-white" style=" font-family: Arial, Helvetica, sans-serif; font-weight: 350"><strong>${noticia.titulo}</strong></h4>
+                                                        <p class="card-text text-white"> <i class="bi bi-calendar-week"></i> ${noticia.data_noticia}</p>
+                                                </div>
                                         </div>
                                 </div>
-                        </div>
-                        <div class="px-2">
-                                <h4 class="text-dark font-weight-bold my-3" style="font-family: Arial, Helvetica, sans-serif; font-weight: 700">${noticia.subtitulo}</h4>
-                                <p class="text-secondary mt-3">${noticia.descricao}</p>
-                        </div>
-                        
+                                <div class="px-2 col">
+                                        <h4 class="text-dark font-weight-bold my-3" style="font-family: Arial, Helvetica, sans-serif; font-weight: 700">${noticia.subtitulo}</h4>
+                                </div>
+                        </a>
                 `;
                 listaContainer.appendChild(item);
+                console.log(noticia.id)
         });
 }
 
