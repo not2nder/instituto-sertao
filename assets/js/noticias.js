@@ -5,9 +5,12 @@ const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
 const listaContainer = document.querySelector('#noticias-lista');
 
 async function getNoticias() {
+        loadSkeleton()
+
         const { data, error } = await supabaseClient.from("noticias").select("*").order('data_noticia', { ascending: false });
         if (error) { console.log("Erro ao Buscar os dados")}
 
+        listaContainer.innerHTML = "";
         data.forEach(noticia => {
                 const item = document.createElement('li')
                 item.classList.add(`col-sm-4`,'border-bottom','col-md-6','col-lg-4')
@@ -30,6 +33,34 @@ async function getNoticias() {
                 listaContainer.appendChild(item);
                 console.log(noticia.id)
         });
+}
+
+function loadSkeleton() {
+        listaContainer.innerHTML = "";
+
+        for (let i = 0; i < 6; i++) {
+                const item = document.createElement('li');
+                item.classList.add('col-sm-4','col-md-6','col-lg-4');
+
+                item.innerHTML = `
+                <div class="card border-0">
+                        <div class="position-relative">
+                        <div class="skeleton sk-card-img"></div>
+
+                        <div class="sk-overlay">
+                                <div class="skeleton sk-text sk-title"></div>
+                                <div class="skeleton sk-text sk-date"></div>
+                        </div>
+                        </div>
+                </div>
+
+                <div class="px-2">
+                        <div class="skeleton sk-text sk-subtitle"></div>
+                </div>
+                `;
+
+                listaContainer.appendChild(item);
+        }
 }
 
 getNoticias();

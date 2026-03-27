@@ -1,0 +1,132 @@
+* {
+    font-family: 'Inter', sans-serif !important;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #f9f9f9;
+}
+
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    background: linear-gradient(0deg, #388448 0%,#52a053 100%);
+}
+
+.sidebar .title {
+    font-weight: 600;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+    background-color: rgba(255, 255, 255, 0.168);
+    font-weight: 600;
+}
+
+.btn-logout {
+    background-color: #F1464B;
+    color: white;
+    transition: background .2s ease-in-out;
+    border: none;
+    padding: 8px;
+}
+
+.btn-logout:hover, .btn-logout:active {
+    background-color: #d64045 !important; 
+    border: none;
+}
+
+.painel {
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+}
+
+.painel .header{
+    background: linear-gradient(-90deg,rgb(133, 206, 91) 0%, rgba(101, 186, 90, 1) 100%);
+    border-radius: 8px 8px 0 0;
+}
+
+.painel h5 {
+    color: white;
+}
+
+.btn-insert {
+    border: none;
+    padding: 8px;
+    transition: background .1s ease-in-out;
+}
+
+.btn-insert:hover, .btn-insert:active {
+    border: none;
+    background-color: rgba(0, 0, 0, 0.129) !important;
+}
+
+img, input {
+    user-select: none;
+    -webkit-user-drag: none;
+}
+
+*::selection {
+    background-color: #a5b6a257;
+}
+
+.modal-content {
+    border: none;
+    border-radius: 15px;
+}
+
+.modal-title {
+    font-weight: 600;
+}
+
+.modal-icon {
+    width: 36px;
+    height: 36px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background-color: #f2f2f2;
+    color: #a4a4a4;
+}
+
+.modal-header {
+    border-bottom: 2px solid #d6d6d6;
+}
+
+label {
+    font-size: small;
+    font-weight: 600;
+}
+
+.form-control {
+    background-color: #FCFBFC;
+    border: 2px solid #d6d6d6;
+
+    border-radius: 15px;
+
+    padding: 10px;
+}
+
+.btn {
+    padding: 8px 15px;
+}
+
+.btn-action:hover {
+    color: #636363;
+}
+
+.btn-action {
+    border: none;
+    transition: .2s ease-in-out;
+}
+
+.modal-footer {
+    border-top: none;
+}

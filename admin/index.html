@@ -24,28 +24,32 @@
   <link href="/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
   <link href="/assets/css/main.css" rel="stylesheet">
-  <link rel="stylesheet" href="/assets/css/noticias.css">
+  <link rel="stylesheet" href="/assets/css/dashboard.css">
 
   <!-- Supabase Connection -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
 </head>
-<body class="d-flex flex-column min-vh-100">
-  <header id="header" class="header d-flex align-items-center">
-    <div class="container-fluid container-xl position-relative d-flex align-items-center">
-      <a href="index.html" class="logo d-flex align-items-center me-auto">
-        <img src="/assets/img/icon-transparent.png" alt="">
-        <h1 class="sitename">Painel Administrativo</h1>
-      </a>
-      <nav id="navmenu" class="navmenu">
-        <ul>
-          <button class="btn btn-outline-danger" onclick="logout()">Sair</button>
-        </ul>
-        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
-      </nav>
-    </div>
-  </header>
+<body class="d-flex">
+  <!-- sidebar -->
+  <div class="sidebar p-3 text-white" style="width: 280px;">
+    <a href="#" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+      <img src="/assets/img/favicon.png" class="me-2">
+      <span class="fs-4 title">Painel IDS</span>
+    </a>
+    <hr>
+    <ul class="nav nav-pills flex-column mb-auto">
+      <li class="nav-item">
+        <a href="/admin/index.html" class="nav-link d-flex align-items-center gap-2 active" aria-current="page">
+          <i class="bi bi-newspaper"></i> Notícias
+        </a>
+      </li>
+    </ul>
+    <hr>
+    <button class="btn btn-logout" onclick="logout()"><i class="bi bi-box-arrow-right"></i> Sair</button>
+  </div>
 
-  <main class="container mt-4">
+  <main class="container min-vh-100 d-flex flex-column">
+    <!-- toast -->
     <div class="toast-container position-fixed bottom-0 end-0 p-3">
       <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
         <div class="toast-header">
@@ -57,24 +61,24 @@
         </div>
       </div>
     </div>
-
-    <div class="card shadow-sm border-0">
-      <div class="card-header d-flex justify-content-between align-items-center">
-        <h5 class="mb-0">Painel de Notícias</h5>
-        <button class="btn btn-primary btn-sm" onclick="abrirModalInsert()">
+    
+    <div class="painel mt-5">
+      <div class="header text-light d-flex justify-content-between align-items-center p-2">
+        <h5 class="m-0">Painel de Notícias</h5>
+        <button class="btn btn-insert text-light" onclick="abrirModalInsert()">
           <i class="bi bi-plus-circle"></i> Nova Notícia
         </button>
       </div>
       <!-- TABELA -->
-      <table class="table table-striped table-hover table-bordered align-middle">
+      <table class="table table-striped table-hover align-middle">
         <thead>
           <tr>
-            <th>Título</th>
-            <th>Subtítulo</th>
-            <th>Descrição</th>
-            <th>Imagem</th>
-            <th>Data</th>
-            <th class="text-end">Ações</th>
+            <th class="painel-titulo">Título</th>
+            <th class="painel-subtitulo">Subtítulo</th>
+            <th class="painel-descricao">Descrição</th>
+            <th class="painel-img">Imagem</th>
+            <th class="painel-data">Data</th>
+            <th class="text-center painel-acoes">Ações</th>
           </tr>
         </thead>
         <tbody id="tabelaNoticias">
@@ -82,15 +86,21 @@
         </tbody>
       </table>
     </div>
+  
     <!-- MODAL INSERIR NOTÍCIA -->
     <div class="modal fade" id="modalInsert" tabindex="-1">
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="tituloModal">Inserir Nova Notícia</h5>
+            <h5 class="modal-title d-flex align-items-center gap-2" id="tituloModal">
+              <div class="modal-icon">
+                <i class="bi bi-plus-circle"></i>
+              </div>
+              Inserir Nova Notícia
+            </h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
           </div>
-          <div class="modal-body">
+          <div class="modal-body pb-0">
             <div class="mb-3">
               <label class="form-label">Título da Notícia</label>
               <input type="text" class="form-control" id="tituloInput" placeholder="Digite o título" required>
@@ -107,15 +117,15 @@
               <label class="form-label">Data da Notícia</label>
               <input type="date" class="form-control" id="dataInput" required>
             </div>
-            <div class="mb-3">
+            <div class="mb-0">
               <label class="form-label">Adicionar Imagem</label>
               <input type="file" class="form-control" id="imagemInput" accept="image/*" required>
             </div>
           </div>
 
           <div class="modal-footer">
-            <button class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-            <button class="btn btn-primary" onclick="salvarNoticia()">Salvar</button>
+            <button class="btn btn-secondary rounded-pill" data-bs-dismiss="modal">Cancelar</button>
+            <button class="btn btn-primary rounded-pill" onclick="salvarNoticia()">Salvar</button>
           </div>
 
         </div>
@@ -127,18 +137,23 @@
         <div class="modal-content border-0 shadow">
 
           <div class="modal-header">
-            <h5 class="modal-title">Confirmar Exclusão de Notícia</h5>
+            <h5 class="modal-title d-flex align-items-center gap-2" id="tituloModal">
+              <div class="modal-icon">
+                <i class="bi bi-trash2"></i>
+              </div>
+              Excluir Notícia
+            </h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
           </div>
-          <div class="modal-body">
+          <div class="modal-body pb-0">
             <p class="text-muted">
               Tem Certeza que Deseja excluir a notícia? Essa ação não pode ser desfeita.
             </p>
           </div>
 
           <div class="modal-footer">
-            <button class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-            <button class="btn btn-danger" id="btnDeletar">Confirmar</button>
+            <button class="btn btn-secondary rounded-pill" data-bs-dismiss="modal">Cancelar</button>
+            <button class="btn btn-danger rounded-pill" id="btnDeletar">Confirmar</button>
           </div>
 
         </div>
@@ -149,10 +164,15 @@
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="tituloModal">Editar Notícia</h5>
+            <h5 class="modal-title d-flex align-items-center gap-2" id="tituloModal">
+              <div class="modal-icon">
+                <i class="bi bi-pencil-square"></i>
+              </div>
+              Editar Notícia
+            </h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
           </div>
-          <div class="modal-body">
+          <div class="modal-body pb-0">
             <div class="mb-3">
               <label class="form-label">Título da Notícia</label>
               <input type="text" class="form-control" id="editTitulo" required>
@@ -172,30 +192,17 @@
           </div>
 
           <div class="modal-footer">
-            <button class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-            <button class="btn btn-primary" id="btnSalvarEdicao">Salvar</button>
+            <button class="btn btn-secondary rounded-pill" data-bs-dismiss="modal">Cancelar</button>
+            <button class="btn btn-primary rounded-pill" id="btnSalvarEdicao">Salvar</button>
           </div>
 
         </div>
       </div>
     </div>
   </main>
-
-  <footer class="mt-auto py-3 bg-light">
-    <div class="container copyright text-center mt-4">
-      <p>© <span>Copyright</span> <strong class="px-1 sitename">QuickStart</strong><span>All Rights Reserved</span></p>
-      <div class="credits">
-        <!-- All the links in the footer should remain intact. -->
-        <!-- You can delete the links only if you've purchased the pro version. -->
-        <!-- Licensing information: https://bootstrapmade.com/license/ -->
-        <!-- Purchase the pro version with working PHP/AJAX contact form: [buy-url] -->
-        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a> Customização por Anderson Fernandes
-      </div>
-    </div>
-  </footer>
-<!-- JS -->
-<script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- Admin -->
-<script src="/admin/admin.js"></script>
+  <!-- JS -->
+  <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <!-- Admin -->
+  <script src="/admin/admin.js"></script>
 </body>
 </html>

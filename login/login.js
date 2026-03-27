@@ -29,3 +29,12 @@ async function login() {
     btn.disabled = false;
   }
 }
+
+const togglePassword = document.getElementById("togglePassword");
+togglePassword.addEventListener('click', () => {
+  const input = document.getElementById("senha");
+  const eyeIcon = document.getElementById("eyeIcon");
+
+  input.type = input.type === "password" ? "text" : "password";
+  eyeIcon.classList.value = eyeIcon.classList.value === "bi-eye" ? "bi-eye-slash" : "bi-eye";
+})

@@ -3,3 +3,115 @@
         width: 55%;
     }
 }
+
+#noticia-skeleton div {
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+    background: #e2e5e7;
+}
+
+#noticia-skeleton div::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.5),
+        transparent
+    );
+    transform: translateX(-100%);
+    animation: shimmer 1.2s infinite;
+}
+
+@keyframes shimmer {
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+.sk-img {
+    aspect-ratio: 4/3;
+    border-radius: 12px;
+}
+
+.sk-text {
+    width: 100%;
+    height: 14px;
+    margin-top: 12px;
+}
+
+.sk-text.title {
+    height: 28px;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.sk-text.subtitle {
+    height: 20px;
+    width: 50%;
+}
+
+.sk-text.small {
+    width: 40%;
+}
+
+/* SKELETON BASE */
+.skeleton {
+    position: relative;
+    overflow: hidden;
+    background: #e2e5e7;
+    border-radius: 8px;
+}
+
+/* shimmer */
+.skeleton::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255,255,255,0.5),
+        transparent
+    );
+    transform: translateX(-100%);
+    animation: shimmer 1.2s infinite;
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* IMAGEM (igual Bootstrap) */
+.sk-card-img {
+  width: 100%;
+  aspect-ratio: 4/3; /* igual ao teu */
+  border-radius: 8px;
+}
+
+/* OVERLAY */
+.sk-overlay {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding: 10px;
+}
+
+.sk-title {
+  height: 18px;
+  width: 80%;
+}
+
+.sk-date {
+  width: 50%;
+}
+
+.sk-subtitle {
+  height: 18px;
+  width: 90%;
+  margin-top: 12px;
+}

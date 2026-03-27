@@ -3,8 +3,10 @@ const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS
 const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
 
 async function getNoticia() {
+    loadSkeleton();
+
     const noticia_id = new URLSearchParams(window.location.search).get("id");
-    const noticiaContainer = document.getElementById("noticia");
+    const container = document.getElementById("noticia");
 
     if (!noticia_id) {
         mostrar404();
@@ -22,18 +24,26 @@ async function getNoticia() {
         return;
     }
 
-    // Preencher os dados da notícia
+    container.innerHTML = `
+        <img class="rounded-3 w-100" source="${data.noticia_imagem}" id="imagem">
+        <div class="my-3">
+            <h3 id="subtitulo">${data.subtitulo}</h3>
+        </div>
+        <p id="descricao">${data.descricao}</p>
+    `;
+
     document.getElementById("titulo").innerText = data.titulo;
     document.getElementById("imagem").src = data.noticia_imagem;
     document.getElementById("subtitulo").innerText = data.subtitulo;
     document.getElementById("descricao").innerText = data.descricao;
 
     document.title = data.titulo;
-    noticiaContainer.style.display = "block";
 }
 
 function mostrar404() {
     const container = document.querySelector(".container.px-4");
+
+    container.innerHTML = ""
     container.innerHTML = `
         <div class="text-center my-5">
             <h2>Notícia não encontrada</h2>
@@ -44,3 +54,19 @@ function mostrar404() {
 }
 
 getNoticia();
+
+function loadSkeleton() {
+    const noticia = document.getElementById("noticia");
+
+    noticia.innerHTML = `
+        <img class="rounded-3 w-100 skeleton sk-img" id="imagem">
+        <div class="my-3">
+            <h3 id="subtitulo" class="skeleton sk-text title"></h3>
+        </div>
+        <p id="descricao" class="skeleton sk-text"></p>
+        <p id="descricao" class="skeleton sk-text"></p>
+        <p id="descricao" class="skeleton sk-text"></p>
+        <p id="descricao" class="skeleton sk-text"></p>
+        <p id="descricao" class="skeleton sk-text"></p>
+    `
+}

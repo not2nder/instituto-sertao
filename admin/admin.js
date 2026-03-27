@@ -52,28 +52,28 @@ async function carregarNoticias() {
 
   tabela.innerHTML = data.map(noticia => `
       <tr>
-        <td class="fw-semibold text-truncate" style="max-width: 120px;">${noticia.titulo}</td>
-        <td class="text-muted text-truncate" style="max-width: 200px;">${noticia.subtitulo}</td>
-        <td class="text-muted text-truncate" style="max-width: 320px;" title="${noticia.descricao}">${noticia.descricao}</td>
+        <td class="fw-semibold text-truncate painel-titulo" style="max-width: 120px;">${noticia.titulo}</td>
+        <td class="text-muted text-truncate painel-subtitulo" style="max-width: 200px;">${noticia.subtitulo}</td>
+        <td class="text-muted text-truncate painel-descricao" style="max-width: 320px;">${noticia.descricao}</td>
 
-        <td class="text-truncate" style="max-width: 100px;"><a href=${noticia.noticia_imagem} target="_blank">${noticia.noticia_imagem}</a></td>
+        <td class="text-truncate painel-img" style="max-width: 100px;"><a href=${noticia.noticia_imagem} target="_blank">${noticia.noticia_imagem}</a></td>
 
-        <td>
+        <td class="painel-data">
           <span class="badge bg-light text-dark border">
             ${new Date(noticia.data_noticia).toLocaleDateString()}
           </span>
         </td>
 
-        <td>
-          <div class="d-flex justify-content-end gap-2">
-            <button class="btn btn-sm btn-outline-warning"
+        <td class="painel-acoes">
+          <div class="text-center gap-2">
+            <button class="btn btn-sm btn-action"
               onclick="editarNoticia('${noticia.id}')">
-              <i class="bi bi-pencil"></i>
+              <i class="bi bi-pencil-fill"></i>
             </button>
 
-            <button class="btn btn-sm btn-outline-danger"
+            <button class="btn btn-sm btn-action"
               onclick="abrirModalDelete('${noticia.id}')">
-              <i class="bi bi-trash"></i>
+              <i class="bi bi-trash-fill"></i>
             </button>
           </div>
         </td>
@@ -277,6 +277,6 @@ function resetTimer() {
 
 window.addEventListener("load", resetTimer)
 
-window.addEventListener("beforeunload", async () => {
-    await supabaseClient.auth.signOut();
-});
+// window.addEventListener("beforeunload", async () => {
+//     await supabaseClient.auth.signOut();
+// });

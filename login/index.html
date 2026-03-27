@@ -1,90 +1,99 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
   <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>Instituto de Desenvolvimento do Sertão</title>
-  <meta name="description" content="O Instituto de Desenvolvimento do Sertão (IDS) promove o desenvolvimento social, cultural, e educacional do sertão brasileiro. Conheça nossos projetos e iniciativas que transformam comunidades locais. Junte-se a nós para construir um futuro mais próspero e inclusivo!">
-  <meta name="keywords" content="desenvolvimento social, educação, cultura, Instituto de Desenvolvimento do Sertão, sertão brasileiro">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - IDS</title>
 
-  <!-- Favicons -->
-  <link href="/assets/img/favicon.png" type="image/x-icon" rel="icon">
+  <link href="/assets/img/favicon.png" rel="icon">
 
   <!-- Fonts -->
-  <link href="https://fonts.googleapis.com" rel="preconnect">
-  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
-  <!-- Vendor CSS Files -->
+  <!-- Bootstrap -->
   <link href="/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="/assets/vendor/aos/aos.css" rel="stylesheet">
-  <link href="/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-  <link href="/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
-  <link href="/assets/css/main.css" rel="stylesheet">
-  <link rel="stylesheet" href="/assets/css/noticias.css">
+  <link href="/assets/css/login.css" rel="stylesheet">
 
-  <!-- Supabase Connection -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
 </head>
-
-<body class="d-flex flex-column min-vh-100">
-  <header class="header d-flex align-items-center fixed-top">
-    <div class="container-fluid container-xl d-flex align-items-center">
-      <a href="/index.html" class="logo d-flex align-items-center me-auto">
-        <img src="/assets/img/icon-transparent.png" alt="">
-        <h1 class="sitename">Instituto de Desenvolvimento do Sertão</h1>
-      </a>
-      <nav class="navmenu">
-        <ul>
-          <li><a href="/index.html">Página Inicial</a></li>
-        </ul>
-      </nav>
+<body class="p-4 min">
+  <main>
+    <div class="wave-container">
+      <svg width="100%" height="100%" id="svg" viewBox="0 0 1440 490" xmlns="http://www.w3.org/2000/svg" class="transition duration-300 ease-in-out delay-150">
+        <defs>
+          <linearGradient id="gradient" x1="99%" y1="41%" x2="1%" y2="59%">
+            <stop offset="5%" stop-color="#62b957"></stop>
+            <stop offset="95%" stop-color="#a7d6a1"></stop>
+          </linearGradient>
+        </defs>
+        <path d="M 0,500 L 0,125 C 81.53076923076924,142.87692307692308 163.06153846153848,160.75384615384615 239,152 C 314.9384615384615,143.24615384615385 385.28461538461545,107.86153846153849 469,105 C 552.7153846153846,102.13846153846151 649.7999999999998,131.79999999999998 723,144 C 796.2000000000002,156.20000000000002 845.5153846153847,150.93846153846155 915,159 C 984.4846153846153,167.06153846153845 1074.1384615384616,188.44615384615386 1165,185 C 1255.8615384615384,181.55384615384614 1347.9307692307693,153.27692307692308 1440,125 L 1440,500 L 0,500 Z" stroke="none" stroke-width="0" fill="url(#gradient)" fill-opacity="0.53" class="transition-all duration-300 ease-in-out delay-150 path-0" transform="rotate(-180 720 250)"></path>
+        <defs>
+          <linearGradient id="gradient" x1="99%" y1="41%" x2="1%" y2="59%">
+            <stop offset="5%" stop-color="#62b957"></stop>
+            <stop offset="95%" stop-color="#a7d6a1"></stop>
+          </linearGradient>
+        </defs>
+        <path d="M 0,500 L 0,291 C 77.06923076923076,293.2769230769231 154.1384615384615,295.55384615384617 233,283 C 311.8615384615385,270.44615384615383 392.5153846153846,243.06153846153842 470,244 C 547.4846153846154,244.93846153846158 621.8000000000001,274.20000000000005 700,299 C 778.1999999999999,323.79999999999995 860.2846153846153,344.1384615384615 944,337 C 1027.7153846153847,329.8615384615385 1113.0615384615385,295.24615384615385 1196,283 C 1278.9384615384615,270.75384615384615 1359.4692307692308,280.87692307692305 1440,291 L 1440,500 L 0,500 Z" stroke="none" stroke-width="0" fill="url(#gradient)" fill-opacity="1" class="transition-all duration-300 ease-in-out delay-150 path-1" transform="rotate(-180 720 250)"></path>
+      </svg>
     </div>
-  </header>
-  <!-- MAIN -->
-  <main class="main" style="margin-top: 120px;">
-    <div class="container d-flex justify-content-center align-items-center" style="min-height: 70vh;">
+    <div class="login-card">
+      <!-- LEFT -->
+      <div class="login-left">
+        <div class="pattern-bg">
+          <svg preserveAspectRatio="slice" viewBox="0 0 400 400">
+            <defs>
+              <pattern id="bg_pattern" width="100" height="100" patternUnits="userSpaceOnUse">
+                <polygon points="0,0 100,0, 0,100" fill="#77ed78"></polygon>
+                <polygon points="100,100 100,0, 0,100" fill="#348c35"></polygon>
+              </pattern>
+            </defs>
+            <rect x="0" y="0" width="100%" height="100%" fill="#efefff"></rect>
+            <rect x="0" y="-90" width="100%" height="200%" fill="url(#bg_pattern)"></rect>
+          </svg>
+        </div>
+        <img src="/assets/img/icon-transparent.png" class="logo">
+        <h2>Bem-vindo ao IDS</h2>
+        <p>Gerencie notícias, conteúdos e atualizações com segurança e praticidade.</p>
+        <a href="/"><i class="bi bi-arrow-left"></i> Voltar ao site</a>
+      </div>
 
-      <div class="card p-4" style="max-width: 400px; width: 100%;">
-        <h3 class="text-center mb-3">Login</h3>
+      <!-- RIGHT -->
+      <div class="login-right p-4">
+        <h3 class="text-center mb-4">Acessar painel</h3>
 
-        <div class="mb-3">
-          <label>Email</label>
-          <input type="email" id="email" class="form-control" placeholder="Digite seu email">
+        <div class="form-group mb-4">
+          <div class="input-group">
+            <span class="input-group-text rounded-start-pill">
+              <i class="bi bi-envelope"></i>
+            </span>
+            <input type="email" id="email" class="form-control rounded-end-pill m-0" placeholder="Digite seu email">
+          </div>
         </div>
 
-        <div class="mb-3">
-          <label>Senha</label>
-          <input type="password" id="senha" class="form-control" placeholder="Digite sua senha">
+        <div class="form-group">
+          <div class="input-group">
+            <span class="input-group-text rounded-start-pill">
+              <i class="bi bi-key"></i>
+            </span>
+            <input type="password" id="senha" class="form-control m-0" placeholder="Digite sua senha">
+            <button id="togglePassword" class="input-group-text rounded-end-pill">
+              <i id="eyeIcon" class="bi-eye"></i>
+            </button>
+          </div>
         </div>
 
-        <button onclick="login()" class="btn btn-primary w-100">
+        <button onclick="login()" class="btn btn-login w-100 rounded-pill mt-2">
           Entrar
         </button>
 
-        <div id="erro" class="text-danger mt-3 text-center"></div>
+        <div id="erro" class="text-danger text-center mt-3"></div>
       </div>
 
     </div>
   </main>
-  <footer class="mt-auto py-3 bg-light">
-    <div class="container copyright text-center mt-4">
-      <p>© <span>Copyright</span> <strong class="px-1 sitename">QuickStart</strong><span>All Rights Reserved</span></p>
-      <div class="credits">
-        <!-- All the links in the footer should remain intact. -->
-        <!-- You can delete the links only if you've purchased the pro version. -->
-        <!-- Licensing information: https://bootstrapmade.com/license/ -->
-        <!-- Purchase the pro version with working PHP/AJAX contact form: [buy-url] -->
-        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a> Customização por Anderson Fernandes
-      </div>
-    </div>
-  </footer>
-  <!-- JS -->
   <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <!-- Login -->
   <script src="/login/login.js"></script>
 </body>
 </html>
