@@ -4,6 +4,11 @@ const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
 let inactivity = 10*60*1000;
 let timeout;
 
+document.getElementById("logoutBtn").addEventListener("click", async(e) => {
+  e.preventDefault();
+  logout();
+})
+
 async function checkAuth() {
   try {
     const { data, error } = await supabaseClient.auth.getUser();
@@ -26,7 +31,7 @@ async function checkAuth() {
       window.location.href = "/";
       return;
     }
-
+    document.getElementById("userEmail").innerHTML = user.email || "Sem Email";
     carregarNoticias();
 
   } catch (err) {
@@ -52,11 +57,19 @@ async function carregarNoticias() {
 
   tabela.innerHTML = data.map(noticia => `
       <tr>
-        <td class="fw-semibold text-truncate painel-titulo" style="max-width: 120px;">${noticia.titulo}</td>
-        <td class="text-muted text-truncate painel-subtitulo" style="max-width: 200px;">${noticia.subtitulo}</td>
-        <td class="text-muted text-truncate painel-descricao" style="max-width: 320px;">${noticia.descricao}</td>
+        <td class="fw-semibold text-truncate painel-titulo">
+          <span class="d-inline-block text-truncate" style="max-width: 100%;">${noticia.titulo}</span>
+        </td>
+        <td class="text-muted text-truncate painel-subtitulo">
+          <span class="d-inline-block text-truncate" style="max-width: 100%;">${noticia.subtitulo}</span>
+        </td>
+        <td class="text-muted text-truncate painel-descricao">
+          <span class="d-inline-block text-truncate" style="max-width: 100%;">${noticia.descricao}</span>
+        </td>
 
-        <td class="text-truncate painel-img" style="max-width: 100px;"><a href=${noticia.noticia_imagem} target="_blank">${noticia.noticia_imagem}</a></td>
+        <td class="text-truncate painel-img">
+          <a href=${noticia.noticia_imagem} target="_blank">${noticia.noticia_imagem}</a>
+        </td>
 
         <td class="painel-data">
           <span class="badge bg-light text-dark border">
@@ -77,7 +90,6 @@ async function carregarNoticias() {
             </button>
           </div>
         </td>
-      </tr>
       </tr>
     `).join("");
 }

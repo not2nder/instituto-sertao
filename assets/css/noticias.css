@@ -81,37 +81,35 @@
 }
 
 @keyframes shimmer {
-  100% {
-    transform: translateX(100%);
-  }
+    100% {
+        transform: translateX(100%);
+    }
 }
 
-/* IMAGEM (igual Bootstrap) */
 .sk-card-img {
-  width: 100%;
-  aspect-ratio: 4/3; /* igual ao teu */
-  border-radius: 8px;
+    width: 100%;
+    aspect-ratio: 4/3;
+    border-radius: 8px;
 }
 
-/* OVERLAY */
 .sk-overlay {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  padding: 10px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 10px;
 }
 
 .sk-title {
-  height: 18px;
-  width: 80%;
+    height: 18px;
+    width: 80%;
 }
 
 .sk-date {
-  width: 50%;
+    width: 50%;
 }
 
 .sk-subtitle {
-  height: 18px;
-  width: 90%;
-  margin-top: 12px;
+    height: 18px;
+    width: 90%;
+    margin-top: 12px;
 }

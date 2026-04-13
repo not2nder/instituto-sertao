@@ -1,40 +1,40 @@
-const supabaseUrl = "https://jgbqolgtvagblvwrrydh.supabase.co";
-const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpnYnFvbGd0dmFnYmx2d3JyeWRoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzE3NTk5MzUsImV4cCI6MjA0NzMzNTkzNX0.7OyNFa2YTVUV2BEKc10FqyXyMA7JJ3yNCDvjVf0ZK0o"; // anon-key
-const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
+import { login } from "../admin/js/auth.js";
 
-async function login() {
-  const btn = document.querySelector("button");
-  btn.disabled = true;
+const btn = document.querySelector(".btn-login");
 
-  try {
-    const email = document.getElementById("email").value.trim();
-    const senha = document.getElementById("senha").value.trim();
+btn.addEventListener("click", handleLogin);
 
-    if (!email || !senha) {
-      throw new Error("Preencha todos os campos.")
+async function handleLogin() {
+    btn.disabled = true;
+
+    try {
+        const email = document.getElementById("email").value.trim();
+        const senha = document.getElementById("senha").value.trim();
+
+        if (!email || !senha) {
+            throw new Error("Preencha todos os campos.");
+        }
+
+        await login(email, senha);
+
+        window.location.href = "/admin";
+
+    } catch (err) {
+        document.getElementById("erro").innerText = err.message;
+    } finally {
+        btn.disabled = false;
     }
-
-    const { error } = await supabaseClient.auth.signInWithPassword({
-      email: email,
-      password: senha
-    });
-
-    if (error) throw error;
-
-    window.location.href = "/admin"
-
-  } catch (err) {
-    document.getElementById("erro").innerText = err.message;
-  } finally {
-    btn.disabled = false;
-  }
 }
 
 const togglePassword = document.getElementById("togglePassword");
-togglePassword.addEventListener('click', () => {
-  const input = document.getElementById("senha");
-  const eyeIcon = document.getElementById("eyeIcon");
 
-  input.type = input.type === "password" ? "text" : "password";
-  eyeIcon.classList.value = eyeIcon.classList.value === "bi-eye" ? "bi-eye-slash" : "bi-eye";
-})
+togglePassword.addEventListener('click', () => {
+    const input = document.getElementById("senha");
+    const eyeIcon = document.getElementById("eyeIcon");
+
+    input.type = input.type === "password" ? "text" : "password";
+    eyeIcon.classList.value =
+        eyeIcon.classList.value === "bi-eye"
+        ? "bi-eye-slash"
+        : "bi-eye";
+});

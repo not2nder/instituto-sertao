@@ -1,9 +1,14 @@
+import { supabaseClient } from "../api.js";
+
 const container = document.getElementById('relatorios-lista');
 
 async function listarRelatoriosPublicos() {
-    const { data, error } = await supabaseClient.storage
+    const {data, error} = await supabaseClient.storage
         .from('files')
-        .list('', { limit: 100 }); 
+        .list('', {
+            limit: 10
+        }); 
+
 
     data.forEach((arquivo) => {
         url = `https://jgbqolgtvagblvwrrydh.supabase.co/storage/v1/object/public/files/${encodeURIComponent(arquivo.name)}`
@@ -26,4 +31,4 @@ async function listarRelatoriosPublicos() {
     });
 }
 
-listarRelatoriosPublicos()
+listarRelatoriosPublicos();

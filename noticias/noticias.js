@@ -1,13 +1,15 @@
-const supabaseUrl = "https://jgbqolgtvagblvwrrydh.supabase.co";
-const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpnYnFvbGd0dmFnYmx2d3JyeWRoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzE3NTk5MzUsImV4cCI6MjA0NzMzNTkzNX0.7OyNFa2YTVUV2BEKc10FqyXyMA7JJ3yNCDvjVf0ZK0o"; // anon-key
-const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
+import { supabaseClient } from "../assets/js/api.js";
 
 const listaContainer = document.querySelector('#noticias-lista');
 
 async function getNoticias() {
         loadSkeleton()
 
-        const { data, error } = await supabaseClient.from("noticias").select("*").order('data_noticia', { ascending: false });
+        const {data, error} = await supabaseClient
+                .from("noticias")
+                .select("*")
+                .order('data_noticia', { ascending: false });
+        
         if (error) { console.log("Erro ao Buscar os dados")}
 
         listaContainer.innerHTML = "";
@@ -15,7 +17,7 @@ async function getNoticias() {
                 const item = document.createElement('li')
                 item.classList.add(`col-sm-4`,'border-bottom','col-md-6','col-lg-4')
                 item.innerHTML = `
-                        <a href="noticia.html?id=${noticia.id}">
+                        <a href="noticia.html?slug=${noticia.slug}">
                                 <div class="card">
                                         <div class="position-relative">
                                                 <img class="card-img-top" style="object-fit: cover; aspect-ratio: 4/3" src="${noticia.noticia_imagem}" alt="Imagem da Notícia">
@@ -31,7 +33,6 @@ async function getNoticias() {
                         </a>
                 `;
                 listaContainer.appendChild(item);
-                console.log(noticia.id)
         });
 }
 

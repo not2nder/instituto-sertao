@@ -9,7 +9,7 @@
   <meta name="keywords" content="desenvolvimento social, educação, cultura, Instituto de Desenvolvimento do Sertão, sertão brasileiro">
 
   <!-- Favicons -->
-  <link href="assets/img/favicon.png" type="image/x-icon" rel="icon">
+  <link href="assets/img/logo-gradient.svg" type="image/x-icon" rel="icon">
 
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com" rel="preconnect">
@@ -24,6 +24,7 @@
   <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
   <link href="assets/css/main.css" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/projetos.css">
 
   <!-- Supabase Connection -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
@@ -33,8 +34,8 @@
   <header id="header" class="header d-flex align-items-center fixed-top">
     <div class="container-fluid container-xl position-relative d-flex align-items-center">
 
-      <a href="index.html" class="logo d-flex align-items-center me-auto">
-        <img src="assets/img/icon-transparent.png" alt="">
+      <a href="/index.html" class="logo d-flex align-items-center me-auto">
+        <img src="assets/img/logo.svg" alt="">
         <h1 class="sitename">Instituto de Desenvolvimento do Sertão</h1>
       </a>
 
@@ -108,81 +109,15 @@
     <!-- Features Section -->
     <section id="projetos" class="features section pb-2">
       <!-- Section Title -->
-      <div class="container section-title pb-0" data-aos="fade-up">
+      <div class="container section-title pb-2" data-aos="fade-up">
         <h2><i class="bi bi-list-check"></i></i> Nossos Projetos</h2>
-      </div><!-- End Section Title -->
+      </div>
 
-      <div class="container">
-        <div class="row d-flex">
-            <ul class="nav nav-tabs" data-aos="fade-up" data-aos-delay="100">
-              <div class="col-sm-4">
-                <li class="nav-item">
-                  <a class="nav-link show" data-bs-toggle="tab" data-bs-target="#features-tab-1">
-                    <i class="bi bi-box"></i>
-                    <div>
-                      <h4 class="d-lg-block">Projeto Educação em 3D</h4>
-                      <p>
-                        O projeto Educação em 3D visa transformar o aprendizado usando tecnologia tridimensional, proporcionando uma experiência imersiva. Com simulações realistas e ambientes interativos, o projeto inspira e motiva alunos de todas as idades.
-                      </p>
-                    </div>
-                  </a>
-                </li>
-              </div>
-              <div class="col-sm-4">
-                <li class="nav-item">
-                  <a class="nav-link" data-bs-toggle="tab" data-bs-target="#features-tab-2">
-                    <i class="bi bi-star"></i>
-                    <div>
-                      <h4 class="d-lg-block">Cinema Itinerante</h4>
-                      <p>
-                        Esse projeto leva o cinema até a comunidade de Várzea, proporcionando uma experiência cinematográfica única. Contando com tecnologia de ponta e uma programação diversificada, o Cinema Itinerante busca promover a diversidade cultural.
-                      </p>
-                    </div>
-                  </a>
-                </li>
-              </div>
-              <div class="col-sm-4">
-                <li class="nav-item">
-                  <a class="nav-link" data-bs-toggle="tab" data-bs-target="#features-tab-3">
-                    <i class="bi bi-book"></i>
-                    <div>
-                      <h4 class="d-lg-block">Projeto Além da Aula</h4>
-                      <p>
-                        Atendendo a 60 crianças e adolescentes, o projeto oferece atividades como capoeira, handebol e robótica, promovendo desenvolvimento físico, mental e emocional, além de valores de inclusão e espírito de equipe.
-                      </p>
-                    </div>
-                  </a>
-                </li>
-              </div>
-              <div class="col-sm-4">
-                <li class="nav-item">
-                  <a class="nav-link" data-bs-toggle="tab" data-bs-target="#features-tab-3">
-                    <i class="bi bi-mortarboard"></i>
-                    <div>
-                      <h4 class="d-lg-block">Projeto Construindo Educação</h4>
-                      <p>
-                        Uma iniciativa para a formação continuada de educadores, oferecendo cursos de qualificação e especialização para aprimorar as práticas pedagógicas e capacitar os profissionais a enfrentarem desafios contemporâneos.
-                      </p>
-                    </div>
-                  </a>
-                </li>
-              </div>
-              <div class="col-sm-4">
-                <li class="nav-item">
-                  <a class="nav-link" data-bs-toggle="tab" data-bs-target="#features-tab-3">
-                    <i class="bi bi-check2-square"></i>
-                    <div>
-                      <h4 class="d-lg-block">Projeto Meu Primeiro Curso</h4>
-                      <p>
-                        Voltado para jovens recém-formados no ensino médio, o projeto oferece cursos técnicos de 15 meses para capacitá-los para o mercado de trabalho, promovendo inclusão social e desenvolvimento econômico.
-                      </p>
-                    </div>
-                  </a>
-                </li>
-              </div>
-            </ul><!-- End Tab Nav -->
-        </div>
-    </section><!-- /Features Section -->
+      <div class="container mx-auto">
+        <ul class="row g-3 p-0 d-flex justify-content-center" id="projetosContainer">
+          <!-- Js -->
+        </ul>
+    </section>
     <hr>
     <!-- Midia -->
     <section id="midia" class="mb-1 pt-2">
@@ -216,21 +151,21 @@
         </div>
     </section>
 
-    <!-- Início seção de eventos -->
+    <!-- Início seção de notícias -->
     <section id="noticias" class="section light-background border-top border-bottom pb-2">
       <div class="container section-title" data-aos="fade-up">
         <h2><i class="bi bi-calendar-week"></i> Notícias Recentes</h2>
         <p>Fique atento aos eventos promovidos pelo IDS, que visam valorizar a cultura e promover inclusão na região do sertão.</p>
       </div>
-      <!-- card -->
+
       <div class="container mx-auto">
-        <ul id="eventos-lista" class="row g-3 p-0">
+        <ul id="noticias-lista" class="row g-3 p-0">
           <!-- Javascript -->
         </ul>
-        <p>Leia mais notícias em nossa <a class="mx-auto" href="noticias.html">Página de Notícias <i class="bi bi-box-arrow-up-right"></i></a></p>
+        <p>Leia mais em nossa <a class="mx-auto" href="noticias/index.html">Página de Notícias <i class="bi bi-box-arrow-up-right"></i></a></p>
       </div>
     </section>
-    <!-- Fim seção de eventos -->
+    <!-- Fim seção de notícias -->
     
     <!-- inicio seção de relatórios -->
     <section id="portal" class="section light-background border-top border-bottom py-5">
@@ -253,7 +188,7 @@
       <div class="row gy-4">
         <div class="col-lg-10 col-md-6 footer-about mx-auto">
           <a href="index.html" class="logo d-flex align-items-center">
-            <img src="assets/img/favicon.png" alt="">
+            <img src="assets/img/logo.svg" alt="">
             <span class="sitename">Instituto de Desenvolvimento do Sertão</span>
           </a>
           <div class="footer-contact pt-3">
@@ -295,9 +230,13 @@
   <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
 
   <!-- Main JS File -->
-  <script src="assets/js/main.js"></script>
-  <script src="assets/js/eventos.js"></script>
-  <script src="assets/js/relatorios.js"></script>
+  <script src="assets/js/main.js" type="module"></script>
+  <!-- Notícias (preview) -->
+  <script src="/assets/js/modules/noticias.js" type="module"></script>
+  <!-- Relatórios -->
+  <script src="assets/js/modules/relatorios.js" type="module"></script>
+  <!-- Projetos -->
+  <script src="assets/js/modules/projetos.js" type="module"></script>
 </body>
 
 </html>

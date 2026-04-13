@@ -9,12 +9,13 @@
   <meta name="keywords" content="desenvolvimento social, educação, cultura, Instituto de Desenvolvimento do Sertão, sertão brasileiro">
 
   <!-- Favicons -->
-  <link href="/assets/img/favicon.png" type="image/x-icon" rel="icon">
+  <link href="/assets/img/logo-gradient.svg" type="image/x-icon" rel="icon">
 
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com" rel="preconnect">
   <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
 
   <!-- Vendor CSS Files -->
   <link href="/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -25,184 +26,576 @@
 
   <link href="/assets/css/main.css" rel="stylesheet">
   <link rel="stylesheet" href="/assets/css/dashboard.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
   <!-- Supabase Connection -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+  <link href="https://unpkg.com/gridjs/dist/theme/mermaid.min.css" rel="stylesheet" />
+  <script src="https://unpkg.com/gridjs/dist/gridjs.umd.js"></script>
 </head>
-<body class="d-flex">
-  <!-- sidebar -->
-  <div class="sidebar p-3 text-white" style="width: 280px;">
-    <a href="#" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-      <img src="/assets/img/favicon.png" class="me-2">
-      <span class="fs-4 title">Painel IDS</span>
+<body>
+  <div class="d-flex min-vh-100">
+    <!-- SIDEBAR -->
+    <aside class="sidebar d-flex flex-column p-2" id="sidebar">
+  
+    <!-- LOGO -->
+    <a href="/" class="logo d-flex align-items-center justify-content-center mb-3">
+      <img src="/assets/img/logo-white.svg" alt="Logo" width="38" height="38">
     </a>
-    <hr>
-    <ul class="nav nav-pills flex-column mb-auto">
+    <!-- MENU -->
+    <ul class="nav nav-pills flex-column mb-auto w-100">
+
       <li class="nav-item">
-        <a href="/admin/index.html" class="nav-link d-flex align-items-center gap-2 active" aria-current="page">
-          <i class="bi bi-newspaper"></i> Notícias
+        <a href="#" class="nav-link active" data-bs-toggle="tab" data-bs-target="#dashboard">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="round" aria-hidden="true">
+            <rect width="7" height="9" x="3" y="3" rx="1"></rect>
+            <rect width="7" height="5" x="14" y="3" rx="1"></rect>
+            <rect width="7" height="9" x="14" y="12" rx="1"></rect>
+            <rect width="7" height="5" x="3" y="16" rx="1"></rect>
+          </svg>
+          <span>Dashboard</span>
         </a>
       </li>
-    </ul>
-    <hr>
-    <button class="btn btn-logout" onclick="logout()"><i class="bi bi-box-arrow-right"></i> Sair</button>
-  </div>
 
-  <main class="container min-vh-100 d-flex flex-column">
-    <!-- toast -->
-    <div class="toast-container position-fixed bottom-0 end-0 p-3">
-      <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="toast-header">
-          <strong class="me-auto">Aviso</strong>
-          <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-        </div>
-        <div class="toast-body" id="mensagem">
-          <!-- Js -->
-        </div>
-      </div>
-    </div>
-    
-    <div class="painel mt-5">
-      <div class="header text-light d-flex justify-content-between align-items-center p-2">
-        <h5 class="m-0">Painel de Notícias</h5>
-        <button class="btn btn-insert text-light" onclick="abrirModalInsert()">
-          <i class="bi bi-plus-circle"></i> Nova Notícia
+      <li class="nav-item">
+        <a href="#" class="nav-link" data-bs-toggle="tab" data-bs-target="#noticias">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M8 2v4"></path>
+            <path d="M16 2v4"></path>
+            <rect width="18" height="18" x="3" y="4" rx="2"></rect>
+            <path d="M3 10h18"></path>
+          </svg>
+          <span>Notícias</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a href="#" class="nav-link" data-bs-toggle="tab" data-bs-target="#projetos">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M13 5h8"></path>
+            <path d="M13 12h8"></path>
+            <path d="M13 19h8"></path>
+            <path d="m3 17 2 2 4-4"></path>
+            <path d="m3 7 2 2 4-4"></path>
+          </svg>
+          <span>Projetos</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a href="#" class="nav-link" data-bs-toggle="tab" data-bs-target="#auditoria">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"></path>
+            <path d="M14 2v5a1 1 0 0 0 1 1h5"></path>
+            <path d="M10 9H8"></path>
+            <path d="M16 13H8"></path>
+            <path d="M16 17H8"></path>
+          </svg>
+          <span>Auditoria</span>
+        </a>
+      </li>
+
+      <hr>
+
+      <!-- USER -->
+      <li class="nav-item dropdown mt-auto">
+        <a href="#" class="nav-link d-flex" data-bs-toggle="dropdown">
+          <div id="userAvatar" class="avatar-circle">..</div>
+          <div class="d-flex flex-column">
+            <span class="fw-semibold text-capitalize" id="userName">Carregando</span>
+            <small class="text-muted text-capitalize" id="userRole">Carregando</small>
+          </div>
+        </a>
+
+        <ul class="dropdown-menu text-small shadow">
+          <li>
+            <a href="#" class="dropdown-item" id="logoutBtn">
+              <i class="bi bi-box-arrow-right"></i> Logout
+            </a>
+          </li>
+        </ul>
+      </li>
+
+      <!-- TOGGLE -->
+      <li class="nav-item" id="toggleSidebar">
+        <button class="nav-link w-100 border-0 bg-transparent">
+          <i class="bi bi-arrows-collapse-vertical fs-5"></i>
+          <span>Minimizar</span>
         </button>
+      </li>
+    </ul>
+    </aside>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () { 
+        const sidebar = document.getElementById("sidebar"); 
+        const togglebutton = document.getElementById("toggleSidebar"); 
+        togglebutton.addEventListener("click", function () { 
+          sidebar.classList.toggle("expanded"); 
+          }) 
+        }) 
+    </script>
+    <!-- Fim da sidebar -->
+
+    <!-- CONTENT -->
+    <main class="tab-content w-100 p-3">
+      <div class="tab-pane fade show active" id="dashboard">
+        <h2 class="m-0 d-flex align-items-center gap-2 fw-semibold">
+          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true">
+            <rect width="7" height="9" x="3" y="3" rx="1"></rect>
+            <rect width="7" height="5" x="14" y="3" rx="1"></rect>
+            <rect width="7" height="9" x="14" y="12" rx="1"></rect>
+            <rect width="7" height="5" x="3" y="16" rx="1"></rect>
+          </svg>
+          <span>Dashboard</span>
+        </h2>
+        <hr>
+
+        <div class="estatisticas pb-3">
+          <div class="card card-resumo h-100 py-2 border shadow-sm">
+            <div class="card-body">
+              <div class="row no-gutters align-items-center">
+                <div class="col mr-2">
+                  <div class="font-weight-bold text-success text-uppercase mb-1">
+                    Notícias Publicadas
+                  </div>
+                  <div class="h5 mb-0 font-weight-bold text-gray-800" id="total-noticias"></div>
+                </div>
+                <div class="col-auto">
+                  <i class="fas fa-solid fa-newspaper fa-2x text-body-tertiary"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card card-resumo h-100 py-2 border shadow-sm">
+            <div class="card-body">
+              <div class="row no-gutters align-items-center">
+                <div class="col mr-2">
+                  <div class="font-weight-bold text-success text-uppercase mb-1">
+                    últimos 30 Dias
+                  </div>
+                  <div class="h5 mb-0 font-weight-bold text-gray-800" id="noticias-mes"></div>
+                </div>
+                <div class="col-auto">
+                  <i class="fas fa-solid fa-calendar fa-2x text-body-tertiary"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card card-resumo h-100 py-2 border shadow-sm">
+            <div class="card-body">
+              <div class="row no-gutters align-items-center">
+                <div class="col mr-2">
+                  <div class="font-weight-bold text-success text-uppercase mb-1">
+                    última Notícia
+                  </div>
+                  <div class="h5 mb-0 font-weight-bold text-gray-800" id="data-ultima-noticia"></div>
+                </div>
+                <div class="col-auto">
+                  <i class="fas fa-solid fa-clock fa-2x text-body-tertiary"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="resumos">
+          <div>
+            <div class="card chart-card mb-3 rounded-4 border shadow-sm">
+              <div class="card-header p-3">
+                <h5 class="m-0 d-flex align-items-center gap-2 fw-semibold">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chart-no-axes-combined h-[18px] w-[18px] shrink-0 transition-colors text-sidebar-primary" aria-hidden="true"><path d="M12 16v5"></path><path d="M16 14v7"></path><path d="M20 10v11"></path><path d="m22 3-8.646 8.646a.5.5 0 0 1-.708 0L9.354 8.354a.5.5 0 0 0-.707 0L2 15"></path><path d="M4 18v3"></path><path d="M8 14v7"></path></svg>
+                  <span>Panorama de Notícias</span>
+                </h5>
+              </div>
+
+              <div class="card-body">
+                <canvas id="myChart"></canvas>
+              </div>
+            </div>
+
+            <div class="card rounded-4 border shadow-sm">
+              <div class="card-header p-3">
+                <h5 class="m-0 d-flex align-items-center gap-2 fw-semibolds">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-calendar-days size-4 shrink-0" aria-hidden="true"><path d="M8 2v4"></path><path d="M16 2v4"></path><rect width="18" height="18" x="3" y="4" rx="2"></rect><path d="M3 10h18"></path><path d="M8 14h.01"></path><path d="M12 14h.01"></path><path d="M16 14h.01"></path><path d="M8 18h.01"></path><path d="M12 18h.01"></path><path d="M16 18h.01"></path></svg>
+                  <span>Ultima Notícia</span>
+                </h5>
+              </div>
+              <div class="card-body noticia d-flex gap-3" id="ultima-noticia">
+                <!-- Js -->
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <div class="card mb-3 rounded-4 border shadow-sm">
+              <div class="card-header p-3">
+                <h5 class="m-0 d-flex align-items-center gap-2 fw-semibold">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-clock h-5 w-5 text-chart-4" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="M12 6v6l4 2"></path></svg>
+                  <span>Atividade Recente</span>
+                </h5>
+              </div>
+              <div class="card-body">
+                <ul id="logs" class="logs mb-0">
+                  <!-- Js -->
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      <!-- TABELA -->
-      <table class="table table-striped table-hover align-middle">
-        <thead>
-          <tr>
-            <th class="painel-titulo">Título</th>
-            <th class="painel-subtitulo">Subtítulo</th>
-            <th class="painel-descricao">Descrição</th>
-            <th class="painel-img">Imagem</th>
-            <th class="painel-data">Data</th>
-            <th class="text-center painel-acoes">Ações</th>
-          </tr>
-        </thead>
-        <tbody id="tabelaNoticias">
+
+      <div class="tab-pane fade" id="noticias">
+        <h2 class="m-0 d-flex align-items-center gap-2 fw-semibold">
+          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="round" aria-hidden="true">
+            <path d="M8 2v4"></path>
+            <path d="M16 2v4"></path>
+            <rect width="18" height="18" x="3" y="4" rx="2"></rect>
+            <path d="M3 10h18"></path>
+          </svg>
+          <span>Notícias</span>
+        </h2>
+        <hr>
+        <!-- TOAST -->
+        <div class="toast-container position-fixed bottom-0 end-0 p-3">
+          <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+              <strong class="me-auto">Aviso</strong>
+              <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body" id="mensagem">
+              <!-- Js -->
+            </div>
+          </div>
+        </div>
+        
+        <!-- CARD TABELA -->
+        <div class="card shadow mb-4" id="cardTabela">
           <!-- JS -->
-        </tbody>
-      </table>
-    </div>
-  
-    <!-- MODAL INSERIR NOTÍCIA -->
-    <div class="modal fade" id="modalInsert" tabindex="-1">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title d-flex align-items-center gap-2" id="tituloModal">
-              <div class="modal-icon">
-                <i class="bi bi-plus-circle"></i>
+        </div>
+        <!-- MODAL INSERIR NOTÍCIA -->
+        <div class="modal fade" id="modalInsert" tabindex="-1">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title d-flex align-items-center gap-2" id="tituloModal">
+                  <div class="modal-icon">
+                    <i class="bi bi-plus-circle"></i>
+                  </div>
+                  Inserir Nova Notícia
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
               </div>
-              Inserir Nova Notícia
-            </h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-          </div>
-          <div class="modal-body pb-0">
-            <div class="mb-3">
-              <label class="form-label">Título da Notícia</label>
-              <input type="text" class="form-control" id="tituloInput" placeholder="Digite o título" required>
-            </div>
-            <div class="mb-3">
-              <label class="form-label">Subtítulo</label>
-              <input type="text" class="form-control" id="subtituloInput" required>
-            </div>
-            <div class="mb-3">
-              <label class="form-label">Texto da Notícia</label>
-              <textarea rows="5" class="form-control" id="descricaoInput" placeholder="Digite o conteúdo da notícia"></textarea>
-            </div>
-            <div class="mb-3">
-              <label class="form-label">Data da Notícia</label>
-              <input type="date" class="form-control" id="dataInput" required>
-            </div>
-            <div class="mb-0">
-              <label class="form-label">Adicionar Imagem</label>
-              <input type="file" class="form-control" id="imagemInput" accept="image/*" required>
-            </div>
-          </div>
+              
+              <div class="modal-body pb-0">
+                <div class="mb-3">
+                  <label for="tituloInput" class="form-label">Título da Notícia</label>
+                  <input type="text" class="form-control" id="tituloInput" placeholder="Digite o título" required>
+                </div>
+                <div class="mb-3">
+                  <label for="subtituloInput" class="form-label">Subtítulo</label>
+                  <input type="text" class="form-control" id="subtituloInput" placeholder="Subtítulo da Notícia" required>
+                </div>
+                <div class="mb-3">
+                  <label for="descricaoInput" class="form-label">Texto da Notícia</label>
+                  <textarea rows="5" class="form-control" id="descricaoInput" placeholder="Digite o conteúdo da notícia"></textarea>
+                </div>
+                <div class="mb-3">
+                  <label for="dataInput" class="form-label">Data da Notícia</label>
+                  <input type="date" class="form-control" id="dataInput" required>
+                </div>
+                <div class="mb-0">
+                  <label for="imagemInput" class="form-label">Adicionar Imagem</label>
+                  <input type="file" class="form-control" id="imagemInput" accept="image/*" required>
+                </div>
+              </div>
 
-          <div class="modal-footer">
-            <button class="btn btn-secondary rounded-pill" data-bs-dismiss="modal">Cancelar</button>
-            <button class="btn btn-primary rounded-pill" onclick="salvarNoticia()">Salvar</button>
-          </div>
+              <div class="modal-footer">
+                <button class="btn btn-secondary rounded-pill" data-bs-dismiss="modal">Cancelar</button>
+                <button class="btn btn-primary rounded-pill" id="confirmar-insert">Salvar</button>
+              </div>
 
+            </div>
+          </div>
+        </div>
+        <!-- MODAL DELETAR NOTÍCIA -->
+        <div class="modal fade" id="modalDelete" tabindex="-1">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow">
+
+              <div class="modal-header">
+                <h5 class="modal-title d-flex align-items-center gap-2" id="tituloModal">
+                  <div class="modal-icon">
+                    <i class="bi bi-trash2"></i>
+                  </div>
+                  Excluir Notícia
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+              </div>
+              <div class="modal-body pb-0">
+                <p class="text-muted">
+                  Tem Certeza que Deseja excluir a notícia? Essa ação não pode ser desfeita.
+                </p>
+              </div>
+
+              <div class="modal-footer">
+                <button class="btn btn-secondary rounded-pill" data-bs-dismiss="modal">Cancelar</button>
+                <button class="btn btn-danger rounded-pill" id="confirmar-delete">Confirmar</button>
+              </div>
+
+            </div>
+          </div>
+        </div>
+        <!-- MODAL EDITAR NOTÍCIA -->
+        <div class="modal fade" id="modalEdit" tabindex="-1">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title d-flex align-items-center gap-2" id="tituloModal">
+                  <div class="modal-icon">
+                    <i class="bi bi-pencil-square"></i>
+                  </div>
+                  Editar Notícia
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+              </div>
+              <div class="modal-body pb-0">
+                <div class="mb-3">
+                  <label class="form-label">Título da Notícia</label>
+                  <input type="text" class="form-control" id="editTitulo" required>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Subtítulo</label>
+                  <input type="text" class="form-control" id="editSubtitulo" required>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Texto da Notícia</label>
+                  <textarea rows="5" class="form-control" id="editDescricao"></textarea>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Data da Notícia</label>
+                  <input type="date" class="form-control" id="editData" required>
+                </div>
+              </div>
+
+              <div class="modal-footer">
+                <button class="btn btn-secondary rounded-pill" data-bs-dismiss="modal">Cancelar</button>
+                <button class="btn btn-primary rounded-pill" id="confirmar-edit">Salvar</button>
+              </div>
+
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-    <!-- MODAL DELETAR NOTÍCIA -->
-    <div class="modal fade" id="modalDelete" tabindex="-1">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content border-0 shadow">
 
-          <div class="modal-header">
-            <h5 class="modal-title d-flex align-items-center gap-2" id="tituloModal">
-              <div class="modal-icon">
-                <i class="bi bi-trash2"></i>
+      <div class="tab-pane fade" id="projetos">
+        <h2 class="m-0 d-flex align-items-center gap-2 fw-semibold">
+          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="round" aria-hidden="true">
+            <path d="M13 5h8"></path>
+            <path d="M13 12h8"></path>
+            <path d="M13 19h8"></path>
+            <path d="m3 17 2 2 4-4"></path>
+            <path d="m3 7 2 2 4-4"></path>
+          </svg>
+          <span>Projetos</span>
+        </h2>
+        <hr>
+
+        <!-- TOAST -->
+        <div class="toast-container position-fixed bottom-0 end-0 p-3">
+          <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+              <strong class="me-auto">Aviso</strong>
+              <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body" id="mensagem">
+              <!-- Js -->
+            </div>
+          </div>
+        </div>
+
+        <!-- TABELA PROJETOS -->
+        <div class="card shadow mb-4" id="cardProjetos">
+          <!-- JS -->
+        </div>
+        <!-- MODAL INSERIR PROJETO -->
+        <div class="modal fade" id="modalInsertProjeto" tabindex="-1">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title d-flex align-items-center gap-2" id="tituloModal">
+                  <div class="modal-icon">
+                    <i class="bi bi-plus-circle"></i>
+                  </div>
+                  Inserir Novo Projeto
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
               </div>
-              Excluir Notícia
-            </h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-          </div>
-          <div class="modal-body pb-0">
-            <p class="text-muted">
-              Tem Certeza que Deseja excluir a notícia? Essa ação não pode ser desfeita.
-            </p>
-          </div>
+              <div class="modal-body pb-0">
+                <div class="mb-3">
+                  <label class="form-label">Título do Projeto</label>
+                  <input type="text" class="form-control" id="tituloInput" placeholder="Digite o título" required>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Descrição</label>
+                  <textarea rows="5" class="form-control" id="descricaoInput" placeholder="Insira a descrição do projeto" maxlength="500"></textarea>
+                </div>
+              </div>
 
-          <div class="modal-footer">
-            <button class="btn btn-secondary rounded-pill" data-bs-dismiss="modal">Cancelar</button>
-            <button class="btn btn-danger rounded-pill" id="btnDeletar">Confirmar</button>
-          </div>
+              <div class="modal-footer">
+                <button class="btn btn-secondary rounded-pill" data-bs-dismiss="modal">Cancelar</button>
+                <button class="btn btn-primary rounded-pill" id="confirmar-insert">Salvar</button>
+              </div>
 
+            </div>
+          </div>
+        </div>
+
+        <!-- MODAL DELETAR PROJETO -->
+        <div class="modal fade" id="modalDelete" tabindex="-1">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow">
+
+              <div class="modal-header">
+                <h5 class="modal-title d-flex align-items-center gap-2" id="tituloModal">
+                  <div class="modal-icon">
+                    <i class="bi bi-trash2"></i>
+                  </div>
+                  Excluir Projeto?
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+              </div>
+              <div class="modal-body pb-0">
+                <p class="text-muted">
+                  Essa ação não pode ser desfeita.
+                </p>
+              </div>
+
+              <div class="modal-footer">
+                <button class="btn btn-secondary rounded-pill" data-bs-dismiss="modal">Cancelar</button>
+                <button class="btn btn-danger rounded-pill" id="confirmar-delete">Confirmar</button>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- MODAL EDITAR PROJETO -->
+        <div class="modal fade" id="modalEdit" tabindex="-1">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title d-flex align-items-center gap-2" id="tituloModal">
+                  <div class="modal-icon">
+                    <i class="bi bi-pencil-square"></i>
+                  </div>
+                  Editar Projeto
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+              </div>
+              <div class="modal-body pb-0">
+                <div class="mb-3">
+                  <label class="form-label">Título do Projeto</label>
+                  <input type="text" class="form-control" id="editTitulo" required>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Descrição do projeto</label>
+                  <textarea rows="5" class="form-control" id="editDescricao"></textarea>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button class="btn btn-secondary rounded-pill" data-bs-dismiss="modal">Cancelar</button>
+                <button class="btn btn-primary rounded-pill" id="confirmar-edit">Salvar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- MODAL IMAGEM -->
+        <div class="modal fade" id="modalImagem" tabindex="-1">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+
+              <div class="modal-header">
+                <h5 class="modal-title">Inserir Imagens</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+              </div>
+
+              <div class="modal-body">
+                <div class="row g-3 images">
+
+                  <div class="col">
+                    <label class="drop-area" data-index="0">
+                      <input type="file" class="input-imagem" accept="image/*" hidden>
+                      <div class="img-view">
+                        <span>Imagem 1</span>
+                        <img>
+                      </div>
+                    </label>
+                  </div>
+
+                  <div class="col">
+                    <label class="drop-area" data-index="1">
+                      <input type="file" class="input-imagem" accept="image/*" hidden>
+                      <div class="img-view">
+                        <span>Imagem 2</span>
+                        <img>
+                      </div>
+                    </label>
+                  </div>
+
+                  <div class="col">
+                    <label class="drop-area" data-index="2">
+                      <input type="file" class="input-imagem" accept="image/*" hidden>
+                      <div class="img-view">
+                        <span>Imagem 3</span>
+                        <img>
+                      </div>
+                    </label>
+                  </div>
+
+                </div>
+              </div>
+
+              <div class="modal-footer">
+                <button class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button class="btn btn-primary" id="confirmar-imagens">Salvar</button>
+              </div>
+
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-    <!-- MODAL EDITAR NOTÍCIA -->
-    <div class="modal fade" id="modalEdit" tabindex="-1">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title d-flex align-items-center gap-2" id="tituloModal">
-              <div class="modal-icon">
-                <i class="bi bi-pencil-square"></i>
-              </div>
-              Editar Notícia
-            </h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-          </div>
-          <div class="modal-body pb-0">
-            <div class="mb-3">
-              <label class="form-label">Título da Notícia</label>
-              <input type="text" class="form-control" id="editTitulo" required>
-            </div>
-            <div class="mb-3">
-              <label class="form-label">Subtítulo</label>
-              <input type="text" class="form-control" id="editSubtitulo" required>
-            </div>
-            <div class="mb-3">
-              <label class="form-label">Texto da Notícia</label>
-              <textarea rows="5" class="form-control" id="editDescricao"></textarea>
-            </div>
-            <div class="mb-3">
-              <label class="form-label">Data da Notícia</label>
-              <input type="date" class="form-control" id="editData" required>
-            </div>
-          </div>
+      
+      <div class="tab-pane fade" id="auditoria">
+        <h2 class="m-0 d-flex align-items-center gap-2 fw-semibold">
+          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="round" aria-hidden="true">
+            <path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"></path>
+            <path d="M14 2v5a1 1 0 0 0 1 1h5"></path>
+            <path d="M10 9H8"></path>
+            <path d="M16 13H8"></path>
+            <path d="M16 17H8"></path>
+          </svg>
+          <span>Auditoria</span>
+        </h2>
+        <hr>
 
-          <div class="modal-footer">
-            <button class="btn btn-secondary rounded-pill" data-bs-dismiss="modal">Cancelar</button>
-            <button class="btn btn-primary rounded-pill" id="btnSalvarEdicao">Salvar</button>
-          </div>
-
+        <!-- CARD TIMELINE -->
+        <div class="card shadow mb-3" id="cardTimeline">
+          <!-- JS -->
         </div>
       </div>
-    </div>
-  </main>
+    </main>
+  </div>
   <!-- JS -->
   <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dompurify@3.0.6/dist/purify.min.js"></script>
   <!-- Admin -->
-  <script src="/admin/admin.js"></script>
+  <script type="module" src="/admin/js/main.js"></script>
 </body>
 </html>
