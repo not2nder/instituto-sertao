@@ -107,7 +107,7 @@ async function carregarEstatisticas() {
             </div>
             <div class="d-flex justify-content-between flex-wrap align-items-center">
                 <span class="text-muted"><i class="fa-regular fa-calendar-days"></i> ${new Date(noticia.data_noticia).toLocaleDateString()}</span>
-                <a href="https://idssertao.org/noticia.html?slug=${noticia.slug}" class="btn btn-outline-success" target="_blank"><i class="fa-solid fa-link"></i> Ver Notícia</a>
+                <a href="https://idssertao.org/noticias/noticia.html?slug=${noticia.slug}" class="btn btn-outline-success" target="_blank"><i class="fa-solid fa-link"></i> Ver Notícia</a>
             </div>
         </div>
     `;
