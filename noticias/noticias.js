@@ -1,22 +1,24 @@
 import { supabaseClient } from "../assets/js/api.js";
 
-const listaContainer = document.querySelector('#noticias-lista');
+const listaContainer = document.querySelector("#noticias-lista");
 
 async function getNoticias() {
-        loadSkeleton()
+  loadSkeleton();
 
-        const {data, error} = await supabaseClient
-                .from("noticias")
-                .select("*")
-                .order('data_noticia', { ascending: false });
-        
-        if (error) { console.log("Erro ao Buscar os dados")}
+  const { data, error } = await supabaseClient
+    .from("noticias")
+    .select("*")
+    .order("data_noticia", { ascending: false });
 
-        listaContainer.innerHTML = "";
-        data.forEach(noticia => {
-                const item = document.createElement('li')
-                item.classList.add(`col-sm-4`,'border-bottom','col-md-6','col-lg-4')
-                item.innerHTML = `
+  if (error) {
+    console.log("Erro ao Buscar os dados");
+  }
+
+  listaContainer.innerHTML = "";
+  data.forEach((noticia) => {
+    const item = document.createElement("li");
+    item.classList.add(`col-sm-4`, "border-bottom", "col-md-6", "col-lg-4");
+    item.innerHTML = `
                         <a href="noticia.html?slug=${noticia.slug}">
                                 <div class="card">
                                         <div class="position-relative">
@@ -32,18 +34,18 @@ async function getNoticias() {
                                 </div>
                         </a>
                 `;
-                listaContainer.appendChild(item);
-        });
+    listaContainer.appendChild(item);
+  });
 }
 
 function loadSkeleton() {
-        listaContainer.innerHTML = "";
+  listaContainer.innerHTML = "";
 
-        for (let i = 0; i < 6; i++) {
-                const item = document.createElement('li');
-                item.classList.add('col-sm-4','col-md-6','col-lg-4');
+  for (let i = 0; i < 6; i++) {
+    const item = document.createElement("li");
+    item.classList.add("col-sm-4", "col-md-6", "col-lg-4");
 
-                item.innerHTML = `
+    item.innerHTML = `
                 <div class="card border-0">
                         <div class="position-relative">
                         <div class="skeleton sk-card-img"></div>
@@ -60,8 +62,8 @@ function loadSkeleton() {
                 </div>
                 `;
 
-                listaContainer.appendChild(item);
-        }
+    listaContainer.appendChild(item);
+  }
 }
 
 getNoticias();

@@ -1,26 +1,31 @@
-import { supabaseClient } from "../api.js";
+import { supabaseClient } from "../assets/js/api.js";
 
-const container = document.getElementById("projetosContainer");
+const listaContainer = document.querySelector("#projetos-lista");
 
-async function mostrarProjetos() {
-  const { data } = await supabaseClient
+async function getProjetos() {
+  loadSkeleton();
+
+  const { data, error } = await supabaseClient
     .from("projetos")
     .select("*")
-    .order("created_at", { ascending: false })
-    .limit(3);
+    .order("created_at", { ascending: false });
 
-  container.innerHTML = "";
+  if (error) {
+    console.log("Erro ao Buscar os dados");
+    return;
+  }
+
+  listaContainer.innerHTML = "";
 
   data.forEach((p, index) => {
     const imagens = p.imagens?.length ? p.imagens : ["/assets/img/default.png"];
 
     const li = document.createElement("li");
-    li.className = "col-sm-4";
+    li.className = "col-12 col-sm-6 col-lg-4";
+    li.id = p.id;
 
-    const a = document.createElement("a");
-    a.href = `/projetos#${p.id}`;
-    a.className = "card h-100 text-decoration-none";
-    li.appendChild(a);
+    const card = document.createElement("div");
+    card.className = "card h-100 border-0 shadow-sm";
 
     if (imagens.length > 1) {
       const carouselId = `carouselProjeto${index}`;
@@ -37,10 +42,12 @@ async function mostrarProjetos() {
         const item = document.createElement("div");
         item.className = `carousel-item ${i === 0 ? "active" : ""}`;
 
-        item.innerHTML = `
-          <img src="${img}" class="d-block w-100" style="object-fit: cover; aspect-ratio: 16/9;">
-        `;
+        const image = document.createElement("img");
+        image.src = img;
+        image.className = "d-block w-100";
+        image.style = "object-fit: cover; aspect-ratio: 4/3;";
 
+        item.appendChild(image);
         inner.appendChild(item);
       });
 
@@ -54,31 +61,63 @@ async function mostrarProjetos() {
       `;
 
       carousel.appendChild(inner);
-      a.appendChild(carousel);
+      card.appendChild(carousel);
     } else {
       const image = document.createElement("img");
       image.className = "card-img-top";
       image.style = "object-fit: cover; width: 100%; aspect-ratio: 16/9";
       image.src = imagens[0];
-      a.appendChild(image);
+
+      card.appendChild(image);
     }
 
     const cardBody = document.createElement("div");
     cardBody.className = "card-body";
-    a.appendChild(cardBody);
 
     const title = document.createElement("h5");
     title.className = "card-title";
     title.innerHTML = `<strong>${p.titulo}</strong>`;
-    cardBody.appendChild(title);
 
     const descricao = document.createElement("p");
     descricao.className = "card-text";
     descricao.textContent = p.descricao;
+
+    cardBody.appendChild(title);
     cardBody.appendChild(descricao);
 
-    container.appendChild(li);
+    card.appendChild(cardBody);
+    li.appendChild(card);
+
+    listaContainer.appendChild(li);
   });
 }
 
-mostrarProjetos();
+function loadSkeleton() {
+  listaContainer.innerHTML = "";
+
+  for (let i = 0; i < 6; i++) {
+    const item = document.createElement("li");
+    item.classList.add("col-sm-4", "col-md-6", "col-lg-4");
+
+    item.innerHTML = `
+      <div class="card border-0">
+        <div class="position-relative">
+        <div class="skeleton sk-card-img"></div>
+
+        <div class="sk-overlay">
+          <div class="skeleton sk-text sk-title"></div>
+          <div class="skeleton sk-text sk-date"></div>
+        </div>
+        </div>
+      </div>
+
+      <div class="px-2">
+        <div class="skeleton sk-text sk-subtitle"></div>
+      </div>
+    `;
+
+    listaContainer.appendChild(item);
+  }
+}
+
+getProjetos();
