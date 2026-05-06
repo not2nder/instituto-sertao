@@ -18,7 +18,7 @@ async function mostrarProjetos() {
     li.className = "col-sm-4";
 
     const a = document.createElement("a");
-    a.href = `/projetos`;
+    a.href = `/projetos#${p.id}`;
     a.className = "card h-100 text-decoration-none";
     li.appendChild(a);
 
