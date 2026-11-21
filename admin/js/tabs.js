@@ -1,49 +1,73 @@
-let loading = {
-    dashbaord: false,
-    noticias: false,
-    projetos: false,
-    auditoria: false
-}
+const loading = {
+  dashboard: false,
+  noticias: false,
+  projetos: false,
+  relatorios: false,
+  auditoria: false,
+};
+
+const initialized = {
+  dashboard: false,
+  noticias: false,
+  projetos: false,
+  relatorios: false,
+  auditoria: false,
+};
+
+const modules = {
+  "#dashboard": {
+    name: "dashboard",
+    path: "./modules/dashboard.js",
+    init: "initDashboard",
+  },
+  "#noticias": {
+    name: "noticias",
+    path: "./modules/noticias.js",
+    init: "initNoticias",
+  },
+  "#projetos": {
+    name: "projetos",
+    path: "./modules/projetos.js",
+    init: "initProjetos",
+  },
+  "#relatorios": {
+    name: "relatorios",
+    path: "./modules/relatorios.js",
+    init: "initRelatorios",
+  },
+  "#auditoria": {
+    name: "auditoria",
+    path: "./modules/auditoria.js",
+    init: "initAuditoria",
+  },
+};
 
 export function initTabs() {
-    const tabs = document.querySelectorAll('[data-bs-toggle="tab"]');
+  const tabs = document.querySelectorAll('[data-bs-toggle="tab"]');
 
-    tabs.forEach(tab => {
-        tab.addEventListener("shown.bs.tab", async (e) => {
-            const target = e.target.getAttribute("data-bs-target");
+  tabs.forEach((tab) => {
+    tab.addEventListener("shown.bs.tab", async (e) => {
+      const target = e.target.getAttribute("data-bs-target");
+      const moduleConfig = modules[target];
 
-            if (target === "#noticias" && !loading.noticias) {
-                loading.noticias = true;
+      if (!moduleConfig) return;
 
-                const module = await import("./modules/noticias.js")
-                module.initNoticias();
+      const { name, path, init } = moduleConfig;
 
-                loading.noticias = false;
-            }
-            else if (target === "#dashboard" && !loading.dashbaord) {
-                loading.dashbaord = true;
+      if (initialized[name] || loading[name]) return;
 
-                const module = await import("./modules/dashboard.js");
-                module.initDashboard();
+      loading[name] = true;
 
-                loading.dashbaord = false;
-            }
-            else if (target === "#projetos" && !loading.projetos) {
-                loading.projetos = true;
+      try {
+        const module = await import(path);
+        await module[init]();
 
-                const module = await import("./modules/projetos.js");
-                module.initProjetos();
-
-                loading.projetos = false;
-            }
-            else if (target === "#auditoria" && !loading.auditoria) {
-                loading.auditoria = true;
-
-                const module = await import("./modules/auditoria.js");
-                module.initAuditoria();
-
-                loading.auditoria = false;
-            }
-        });
+        initialized[name] = true;
+      } catch (err) {
+        console.error(`Erro ao carregar aba ${name}:`, err);
+      } finally {
+        loading[name] = false;
+      }
     });
+  });
 }

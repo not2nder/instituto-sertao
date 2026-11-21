@@ -1,13 +1,14 @@
 const supabaseUrl = "https://jgbqolgtvagblvwrrydh.supabase.co";
-const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpnYnFvbGd0dmFnYmx2d3JyeWRoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzE3NTk5MzUsImV4cCI6MjA0NzMzNTkzNX0.7OyNFa2YTVUV2BEKc10FqyXyMA7JJ3yNCDvjVf0ZK0o"; // anon-key
+const supabaseKey =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpnYnFvbGd0dmFnYmx2d3JyeWRoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzE3NTk5MzUsImV4cCI6MjA0NzMzNTkzNX0.7OyNFa2YTVUV2BEKc10FqyXyMA7JJ3yNCDvjVf0ZK0o"; // anon-key
 const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
-let inactivity = 10*60*1000;
+let inactivity = 10 * 60 * 1000;
 let timeout;
 
-document.getElementById("logoutBtn").addEventListener("click", async(e) => {
+document.getElementById("logoutBtn").addEventListener("click", async (e) => {
   e.preventDefault();
   logout();
-})
+});
 
 async function checkAuth() {
   try {
@@ -33,7 +34,6 @@ async function checkAuth() {
     }
     document.getElementById("userEmail").innerHTML = user.email || "Sem Email";
     carregarNoticias();
-
   } catch (err) {
     console.error("Erro na autenticação:", err);
     window.location.href = "/login";
@@ -46,16 +46,18 @@ async function carregarNoticias() {
   const { data, error } = await supabaseClient
     .from("noticias")
     .select("*")
-    .order("data_noticia", {ascending: false})
+    .order("data_noticia", { ascending: false });
 
   if (error) {
-    mostrarMensagem("Erro ao Carregar Notícias")
+    mostrarMensagem("Erro ao Carregar Notícias");
     return;
   }
 
   const tabela = document.getElementById("tabelaNoticias");
 
-  tabela.innerHTML = data.map(noticia => `
+  tabela.innerHTML = data
+    .map(
+      (noticia) => `
       <tr>
         <td class="fw-semibold text-truncate painel-titulo">
           <span class="d-inline-block text-truncate" style="max-width: 100%;">${noticia.titulo}</span>
@@ -91,7 +93,9 @@ async function carregarNoticias() {
           </div>
         </td>
       </tr>
-    `).join("");
+    `,
+    )
+    .join("");
 }
 
 function abrirModalInsert() {
@@ -106,7 +110,7 @@ async function salvarNoticia() {
   const imagemFile = document.getElementById("imagemInput").files[0];
 
   if (!titulo || !descricao || !data) {
-    mostrarMensagem("Preencha Todos os Campos!")
+    mostrarMensagem("Preencha Todos os Campos!");
     return;
   }
 
@@ -116,86 +120,82 @@ async function salvarNoticia() {
     imagem_url = await uploadImagem(imagemFile);
   }
 
-  const { error } = await supabaseClient
-    .from("noticias")
-    .insert([
-      {
-        titulo: titulo,
-        subtitulo: subtitulo,
-        data_noticia: data,
-        descricao: descricao,
-        noticia_imagem: imagem_url
-      }
-    ]);
+  const { error } = await supabaseClient.from("noticias").insert([
+    {
+      titulo: titulo,
+      subtitulo: subtitulo,
+      data_noticia: data,
+      descricao: descricao,
+      noticia_imagem: imagem_url,
+    },
+  ]);
 
-    if (error) {
-      mostrarMensagem("Erro ao Salvar Notícia");
-      return;
-    }
+  if (error) {
+    mostrarMensagem("Erro ao Salvar Notícia");
+    return;
+  }
 
   bootstrap.Modal.getInstance(document.getElementById("modalInsert")).hide();
-  mostrarMensagem("Notícia Adicionada com Sucesso!")
+  mostrarMensagem("Notícia Adicionada com Sucesso!");
   carregarNoticias();
 }
 
 async function uploadImagem(file) {
-
-  const nome = `${crypto.randomUUID()}.${file.name.split('.').pop()}`;
+  const nome = `${crypto.randomUUID()}.${file.name.split(".").pop()}`;
 
   const { error } = await supabaseClient.storage
     .from("imagens-noticias")
     .upload(nome, file);
 
-    if (error) {
-      mostrarMensagem("Erro no upload")
-      return null;
-    }
-    
-    const {data} = supabaseClient.storage
-      .from("imagens-noticias")
-      .getPublicUrl(nome)
+  if (error) {
+    mostrarMensagem("Erro no upload");
+    return null;
+  }
 
-    return data.publicUrl;
+  const { data } = supabaseClient.storage
+    .from("imagens-noticias")
+    .getPublicUrl(nome);
+
+  return data.publicUrl;
 }
 
-function abrirModalDelete(id){
-  document.getElementById('btnDeletar').onclick = () => deletarNoticia(id)
-  new bootstrap.Modal(document.getElementById('modalDelete')).show()
+function abrirModalDelete(id) {
+  document.getElementById("btnDeletar").onclick = () => deletarNoticia(id);
+  new bootstrap.Modal(document.getElementById("modalDelete")).show();
 }
 
 async function deletarNoticia(id) {
   if (!id) return;
 
   try {
-    const {data, error} = await supabaseClient
-      .from('noticias')
+    const { data, error } = await supabaseClient
+      .from("noticias")
       .select("noticia_imagem")
-      .eq('id',id)
+      .eq("id", id)
       .single();
-    
+
     if (error) throw error;
 
     if (data?.noticia_imagem) {
-      const caminho = decodeURIComponent(data.noticia_imagem.split('/imagens-noticias/')[1]);
+      const caminho = decodeURIComponent(
+        data.noticia_imagem.split("/imagens-noticias/")[1],
+      );
 
-      await supabaseClient.storage
-        .from('imagens-noticias')
-        .remove([caminho]);
+      await supabaseClient.storage.from("imagens-noticias").remove([caminho]);
     }
 
-    const {error: deleteError} = await supabaseClient
+    const { error: deleteError } = await supabaseClient
       .from("noticias")
       .delete()
-      .eq("id",id);
+      .eq("id", id);
 
     if (deleteError) throw deleteError;
 
     bootstrap.Modal.getInstance(document.getElementById("modalDelete")).hide();
-    mostrarMensagem("Notícia Excluída com Sucesso!")
+    mostrarMensagem("Notícia Excluída com Sucesso!");
     carregarNoticias();
-
   } catch (err) {
-    mostrarMensagem("Erro ao Excluir Notícia")
+    mostrarMensagem("Erro ao Excluir Notícia");
   }
 }
 
@@ -205,7 +205,7 @@ async function editarNoticia(id) {
   const { data, error } = await supabaseClient
     .from("noticias")
     .select("*")
-    .eq("id",id)
+    .eq("id", id)
     .single();
 
   if (error) {
@@ -245,7 +245,7 @@ async function salvarEdicao(id) {
       titulo,
       subtitulo,
       descricao,
-      data_noticia: data
+      data_noticia: data,
     })
     .eq("id", id);
 
@@ -257,9 +257,7 @@ async function salvarEdicao(id) {
 
   document.activeElement.blur();
 
-  bootstrap.Modal.getInstance(
-    document.getElementById("modalEdit")
-  ).hide();
+  bootstrap.Modal.getInstance(document.getElementById("modalEdit")).hide();
 
   mostrarMensagem("Notícia atualizada com sucesso!");
   carregarNoticias();
@@ -271,23 +269,23 @@ async function logout() {
 }
 
 function mostrarMensagem(msg) {
-  const toast = document.getElementById("liveToast")
-  const mensagem = document.getElementById("mensagem")
+  const toast = document.getElementById("liveToast");
+  const mensagem = document.getElementById("mensagem");
 
-  mensagem.innerText = msg
+  mensagem.innerText = msg;
   new bootstrap.Toast(toast).show();
 }
 
 function resetTimer() {
   clearTimeout(timeout);
-  timeout = setTimeout(logout, inactivity)
+  timeout = setTimeout(logout, inactivity);
 }
 
-["click","mousemove","keydown","scroll","touchstart"].forEach(event => {
-  document.addEventListener(event, resetTimer)
+["click", "mousemove", "keydown", "scroll", "touchstart"].forEach((event) => {
+  document.addEventListener(event, resetTimer);
 });
 
-window.addEventListener("load", resetTimer)
+window.addEventListener("load", resetTimer);
 
 // window.addEventListener("beforeunload", async () => {
 //     await supabaseClient.auth.signOut();
