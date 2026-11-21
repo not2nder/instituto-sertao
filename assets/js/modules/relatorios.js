@@ -7,11 +7,8 @@ async function listarRelatoriosPublicos() {
     limit: 10,
   });
 
-  console.log(data);
-
   data.forEach((arquivo) => {
     let url = `https://jgbqolgtvagblvwrrydh.supabase.co/storage/v1/object/public/files/${encodeURIComponent(arquivo.name)}`;
-    console.log(url);
 
     const pdfElement = document.createElement("li");
     pdfElement.classList.add("col-12");
